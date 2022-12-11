@@ -53,7 +53,7 @@ int main() {
       }
 
       /* Setando o valor atual da quantidade de rolos para exibição */
-      actualSum = store->maxVectorSequence();
+      actualSum = store->maxVectorSequenceSize();
 
       /* Comparando se o valor antigo da quantidade de rolos é menor que o valor atual. Caso seja, é atualizado. Caso não seja, continua com o mesmo
       valor de antes */

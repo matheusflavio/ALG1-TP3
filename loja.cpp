@@ -18,7 +18,6 @@ void Store::setSizeLess(int size) {
 void Store::resetVectors() {
     this->moreThan = vector<int>(0);
     this->lessThan = vector<int>(0);
-    this->exposed = vector<int>(0);
 }
 
 int Store::getSize() {
@@ -33,7 +32,7 @@ int Store::getSizeLess() {
     return lessThan.size();
 }
 
-int Store::maxVectorSequence() {
+int Store::maxVectorSequenceSize() {
     int sizeMore = getSizeMore();
     int sizeLess = getSizeLess();
     int res = 0;
@@ -77,7 +76,7 @@ int Store::longestIncreaseSubArray(vector<int>array, int size) {
         /* Caso não seja menor que o menor valor e nem maior que o maior valor armazenado, o valor atual em i pode ser um candidato para uma 
         subsequência futura, então, substitui o valor de teto dos índices*/
         else {
-            int pos = ceilBinarySearch(array, lowestIndices, -1, len - 1, array[i]);
+            int pos = ceilBinarySearch(array, lowestIndices, 0, len - 1, array[i]);
             lastIndices[i] = lowestIndices[pos - 1];
             lowestIndices[pos] = i;
         }
@@ -92,10 +91,10 @@ int Store::longestIncreaseSubArray(vector<int>array, int size) {
 
 /* Função de busca binária para o valor de teto dentro do subvetor a fim de acrescentar esse valor como sendo um valor potencial
 futuro para uma subsequência */
-int Store::ceilBinarySearch(vector<int> array, vector<int>& tailIndices, int left, int right, int key) {
+int Store::ceilBinarySearch(vector<int> array, vector<int>& lowestIndices, int left, int right, int key) {
     while (right - left > 1) {
         int middle = left + (right - left) / 2;
-        if (array[tailIndices[middle]] >= key)
+        if (array[lowestIndices[middle]] >= key)
             right = middle;
         else
             left = middle;

@@ -14,7 +14,6 @@ class Store {
         vector<int>rollArray, moreThan, lessThan;
 
         /* Criação do vetor de rolos que serão expostos na vitrine */
-        vector<int>exposed;
 
         /* Função de inicialização da classe com valores predefinidos*/
         Store();
@@ -41,7 +40,7 @@ class Store {
         void resetVectors();
 
         /* Função que retorna um inteiro que corresponde à maior sequência de rolos para exibição */
-        int maxVectorSequence();
+        int maxVectorSequenceSize();
 
         /* Função que retorna o tamanho do maior subVetor crescente dentro do vetor de rolos. É utilizada para achar também o maior vetor
         decrescente por meio do uso do vetor invertido e execução do mesmo algoritmo */
@@ -49,5 +48,5 @@ class Store {
 
         /* Função de busca binária para o valor de teto dentro do subvetor a fim de acrescentar esse valor como sendo um valor potencial
         futuro para uma subsequência */
-        int ceilBinarySearch(vector<int> array, vector<int>& tailIndices, int left, int right, int key);
+        int ceilBinarySearch(vector<int> array, vector<int>& lowestIndices, int left, int right, int key);
 };
