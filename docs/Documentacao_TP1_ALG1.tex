@@ -18,14 +18,14 @@
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\CC}{\mathbb{C}}
 
-\geometry{margin=2.5cm}
+\geometry{left=3cm, top=3cm, right=2cm, bottom=2cm}
 
 \title{\textbf{Trabalho Prático 3 - Exposição de tecidos}}
 \author{\textbf{Matheus Flávio Gonçalves Silva - 2020006850}}
 \date{\parbox{\linewidth}{\centering%
     Universidade Federal de Minas Gerais (UFMG)\endgraf
     Belo Horizonte - MG - Brasil\endgraf\bigskip
-    \href{mailto:email@ufmg.br}{matheusfgs@ufmg.br}}}
+    \href{mailto:matheusfgs@ufmg.br}{matheusfgs@ufmg.br}}}
 
 \begin{document}
 
@@ -33,7 +33,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introdução}
-\par O problema proposto consiste na análise de uma sequência de rolos possíveis de exibição na vitrine de uma loja de tecidos. Como os rolos são pesados, eles podem ser manuseados apenas uma única vez. Todos os rolos possuem preços diferentes, e Jorginho, o dono da loja, quer colocar em exibição em ordem decrescente de preços, podendo ou não adicionar novos rolos à medida que são entregues de acordo com uma lista pré-estabelecida de valores dos rolos. Cada rolo deve ser necessariamente colocado à direita, esquerda ou ignorado na mesma ordem em que apresentado na lista de rolos.
+\par O problema proposto consiste na análise de uma sequência de rolos possíveis de exibição na vitrine de uma loja de tecidos. Como os rolos são pesados, eles podem ser manuseados apenas uma única vez, colocados à direita ou esquerda dos rolos anteriormente colocados em exibição. Todos os rolos possuem preços diferentes, e Jorginho, o dono da loja, quer colocar em exibição a maior quantidade possível de rolos em ordem decrescente de preços, podendo ou não adicionar novos rolos à medida que são entregues de acordo com uma lista pré-estabelecida de valores dos rolos. Cada rolo deve ser necessariamente colocado à direita, esquerda ou ignorado na mesma ordem em que seu valor é apresentado na entrada.
 \par O trabalho é entendido como uma implementação de algoritmos de programação dinâmica em que é encontrado a dimensão do(s) subvetor(es) que cria(m) o(s) subvetor(es) decrescente(s) de maior dimensão para aquela instância.
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,7 +71,7 @@ arquivo Makefile disponível no arquivo TP3-Template-CPP).
     \item 3 Vetores de Inteiros: \textbf{rollArray, moreThan, lessThan};
     \end{itemize}
     \par Cada inteiro, respectivamente, armazena a dimensão dos arrays: 'original' de cada rolo colocado como primeiro em exibição \textbf{(rollArray)}, array de valores maiores \textbf{(moreThan)} e array de valores menores \textbf{(lessThan)}. Assim sendo, cada um dos vetores, respectivamente, armazena os vetores 'originais' para cada rolo considerado como primeiro colocado em exibição \textbf{(rollArray)}, array de rolos com valores maiores que o primeiro rolo \textbf{(moreThan)} e array de rolos com valores menores que o primeiro rolo \textbf{(lessThan)}.
-    \par Como é utilizado somente uma função de encontrar o maior vetor crescente para todos os subvetores, que nem será explicado futuramente, o vetor \textbf{lessThan} tem a peculiaridade de ser criado de forma reversa, em que cada item ao invés de ser adicionado ao final do vetor é adicionado à frente dele. Funciona similar a uma lista com o método \textbf{push\_front()}.
+    \par Como é utilizado somente uma função de encontrar o maior vetor crescente para todos os subvetores, que nem será explicado futuramente, o vetor \textbf{lessThan} tem a peculiaridade de ser criado de forma reversa, em que cada item ao invés de ser adicionado ao final do vetor é adicionado à frente dele. A criação desse vetor é similar à criação de uma lista com o método \textbf{push\_front()}.
 
     \subsection{Funções e Procedimentos}
     \subsubsection{Arquivo loja.cpp}
@@ -80,14 +80,14 @@ arquivo Makefile disponível no arquivo TP3-Template-CPP).
     \item \textbf{void Store::setSize(int size)}: Seta o valor \textbf{size} passado como argumento como sendo o atributo \textbf{size} do \textbf{TAD Store};
     \item \textbf{void Store::setSizeMore(int size)}: Seta o valor \textbf{size} passado como argumento como sendo o atributo \textbf{sizeMore} do \textbf{TAD Store};
     \item \textbf{void Store::setSizeLess(int size)}: Seta o valor \textbf{size} passado como argumento como sendo o atributo \textbf{sizeLess} do \textbf{TAD Store};
-    \item \textbf{void Store::resetVectors()}: Seta os vetores \textbf{moreThan, lessThan} como tendo tamanho \textbf{0} para a próxima execução do algoritmo;
-    \item \textbf{int Store::getSize()}: Retorna o valor de \textbf{size};
-    \item \textbf{int Store::getSizeMore()}: Retorna o valor de \textbf{sizeMore};
-    \item \textbf{int Store::getSizeLess()}: Retorna o valor de \textbf{sizeLess};
+    \item \textbf{void Store::resetVectors()}: Seta os vetores \textbf{moreThan, lessThan} como tendo tamanho \textbf{0} para a próxima execução;
+    \item \textbf{int Store::getSize()}: Retorna o valor de \textbf{size} da \textbf{TAD Store};
+    \item \textbf{int Store::getSizeMore()}: Retorna o valor de \textbf{sizeMore} da \textbf{TAD Store};
+    \item \textbf{int Store::getSizeLess()}: Retorna o valor de \textbf{sizeLess} da \textbf{TAD Store};
     
-    \item \textbf{int Store::maxVectorSequenceSize()}: Retorna o valor correspondente ao comprimento da maior subsequência encontrada para a execução atual do programa. Faz uso da função \textbf{longestIncreaseSubArray} para encontrar o comprimento dos dois maiores subarrays de elementos menores e maiores que o elemento atual. O valor de retorno é definido como \textbf{longestIncreaseSubArray(moreThan, sizeMore) + longestIncreaseSubArray(moreThan, sizeMore) + 1}. Esse retorno é armazenado dentro de uma variável da \textbf{main} para comparação em função do comprimento de cada execução;
-    \item \textbf{int Store::longestIncreaseSubArray(vector\textless int\textgreater array, int size)}: Recebe um subvetor e retorna o comprimento do maior subarray crescente encontrado dentro dele. É utilizada também para encontrar o maior subvetor decrescente ao se passar \textbf{lessThan} que foi criado de forma reversa. \textbf{sizeLess}. Faz uso de mais dois vetores de teste de casos limite \textbf{lowestIndices, lastIndices} que armazenam os índices dos menores valores e dos últimos índices que foram adicionados a \textbf{lowestIndices}. Faz uso de um laço \textbf{for} para comparar um valor atual do laço com o valor anteriormente armazenado, de modo a atualizar caso seja maior que o último armazenado em \textbf{lastIndices} ou caso seja menor que o valor armazenado em \textbf{lowestIndices}. Caso contrário, faz uso da função \textbf{ceilBinarySearch} para determinar um novo valor de teto como sendo a próxima possível subsequência analisada. Por fim, utiliza um laço \textbf{for} para calcular o tamanho do subvetor encontrado. Esse tamanho é, por fim, retornado;
-    \item \textbf{int Store::ceilBinarySearch(vector\textless int\textgreater array, vector\textless int\textgreater\& lowestIndices, int left, int right, int key)}: Função de busca binária que recebe um array, um valor de índice correspondente ao menor índice, valores de direita \textbf{(0)}, esquerda \textbf{(última posição do vetor)} e o valor atual em voga da execução de \textbf{longestIncreaseSubArray}. Essa função enfim encontra o valor teto e retorna esse valor para continuar a execução da função que a invocou.
+    \item \textbf{int Store::maxVectorSequenceSize()}: Retorna o valor correspondente ao comprimento da maior subsequência encontrada para a execução atual do programa. Faz uso da função \textbf{longestIncreaseSubArray} para encontrar o comprimento dos dois maiores subarrays compatíveis de elementos menores e maiores que o elemento atual. O valor de retorno é definido como \textbf{longestIncreaseSubArray(moreThan, sizeMore) + longestIncreaseSubArray(moreThan, sizeMore) + 1}. O retorno é armazenado em uma variável da \textbf{main} para comparação em função do comprimento de cada execução;
+    \item \textbf{int Store::longestIncreaseSubArray(vector\textless int\textgreater array, int size)}: Recebe um subvetor e retorna o comprimento do maior subarray crescente encontrado dentro dele. É utilizada também para encontrar o maior subvetor decrescente ao se passar \textbf{lessThan} que foi criado de forma reversa. Faz uso de mais dois vetores de teste de casos limite \textbf{lowestIndices, lastIndices} que armazenam os índices dos menores valores e dos últimos índices que foram adicionados a \textbf{lowestIndices}. Faz uso de um laço \textbf{for} para comparar um valor atual do laço com o valor anteriormente armazenado, de modo a atualizar caso seja maior que o último armazenado em \textbf{lastIndices} ou caso seja menor que o valor armazenado em \textbf{lowestIndices}. Caso contrário, faz uso da função \textbf{ceilBinarySearch} para determinar um novo valor de teto para próxima possível subsequência analisada. Por fim, utiliza um laço \textbf{for} para calcular o tamanho do subvetor encontrado. Esse tamanho é, por fim, retornado;
+    \item \textbf{int Store::ceilBinarySearch(vector\textless int\textgreater array, vector\textless int\textgreater\& lowestIndices, int left, int right, int key)}: Função de busca binária que recebe um array, um valor de índice correspondente ao menor índice, valores de direita \textbf{(0)}, esquerda \textbf{(última posição do vetor)} e o valor atual em voga da execução de \textbf{longestIncreaseSubArray}. Essa função encontra o valor teto e retorna esse valor para continuar a execução da função que a invocou.
     \end{itemize}
     
     \subsubsection{Arquivo main.cpp}
@@ -100,7 +100,7 @@ arquivo Makefile disponível no arquivo TP3-Template-CPP).
 
 \section{Análise de Complexidade}
 \subsection {Complexidade de tempo:}
-    \par A execução do programa é dominado assintoticamente pela execução da função \textbf{longestIncreaseSubArray}. Pela definição do algoritmo em si conforme explicado anteriormente, ela é executada de modo que:
+    \par A execução do programa é dominado assintoticamente pela execução da função \textbf{longestIncreaseSubArray}. Pela definição do algoritmo em si, conforme explicado anteriormente, ela é executada de modo que:
     \par {\begin{center} F(n) = F(n-1) + n + 1\end{center}}
     \par Por sua vez, F(n) = F(n-1) + n + 1 é dita como:
     \par {\begin{center} F(n) = F(n - 2) + (n - 1) + n + 2 \end{center}}
@@ -108,15 +108,15 @@ arquivo Makefile disponível no arquivo TP3-Template-CPP).
     {\begin{center}
         F(n) = F(0) + 1 + 2 + ... + (n - 2) + (n - 1) + n + n
     \end{center}}
-    \par Como, a definição do algoritmo é de executar até o caso em que n \textgreater\space totalSum, F(0) é $O(0)$, enquanto F(1) é O(1) por apenas ser um vetor de tamanho 1, de modo que é trivial. Assim sendo, a relação de recorrência pode ser reescrita como:
+    \par Como, a definição do algoritmo é de executar até o caso em que n \textgreater\space totalSum, F(0) é $O(0)$, enquanto F(1) é $O(1)$ por se tratar de um vetor de tamanho 1, de modo que é trivial. Assim sendo, a relação de recorrência pode ser reescrita como:
     {\begin{center}
     F(n) = 0 + n(n + 1)/2 + n
-\par F(n) = $\frac{n² + n}{2}$ + n = $\frac{n² + 3n}{2}$
+\par F(n) = $\frac{n^2 + n}{2}$ + n = $\frac{n^2 + 3n}{2}$
 \par F(n) = $O(n^2)$
     \end{center}}
     
     \subsection{Complexidade de espaço:}
-    \par A complexidade de espaço é determinada pela TAD \textbf{"Store"} e pelos vetores de caso limite da função \textbf{longestIncreaseSubArray}, em que o espaço utilizado é dominado pelos 3 vetores contidos e pelos 2 vetores utilizados pela função. Como o vetor \textbf{rollArray} armazena os \textbf{"n"} rolos, e os vetores \textbf{moreThan, lessThan} são na realidade subvetores de tamanho máximo \textbf{"n - 1"}, uma vez que são criados a partir de \textbf{"rollArray"} sem o primeiro elemento, além de que os vetores auxiliares tem o limite de tamanho determinado também por , temos que a complexidade de espaço é dada em:
+    \par A complexidade de espaço é determinada pela TAD \textbf{"Store"} e pelos vetores de caso limite da função \textbf{longestIncreaseSubArray}, em que o espaço utilizado é dominado pelos 3 vetores contidos na TAD e pelos 2 vetores criados pela função. Como o vetor \textbf{rollArray} armazena os \textbf{"n"} rolos, e os vetores \textbf{moreThan, lessThan} são na realidade subvetores de tamanho máximo \textbf{"n - 1"}, uma vez que são criados a partir de \textbf{"rollArray"} sem o primeiro elemento, além de que os vetores auxiliares tem o limite de tamanho determinado também por \textbf{"n - 1"}, uma vez que provém dos subvetores, temos que a complexidade de espaço é dada por:
     \begin{center}
         F(n) = $O(n) + O(n-1) + O(n-1) + O(n-1) + O(n-1)$
         \par F(n) = $5O(n)$
@@ -128,8 +128,8 @@ arquivo Makefile disponível no arquivo TP3-Template-CPP).
 
 \section{Conclusão}
     \par Por fim, a execução do trabalho foi concluída de modo a corresponder a 100\% de acerto em relação aos casos testes apresentados. No entanto, a velocidade do algoritmo desenvolvido não parece muito promissora, sendo provavelmente mais lento do que era esperado.
-    \par Ademais, a compressão e desenvolvimento do trabalho em si se deu com dificuldade, tanto por conseguir um programa aparentemente lento quanto por ter sido extremamente difícil chegar a um pensamento inicial que culminou na execução do trabalho entregue. O desenvolvimento do que é proposto só se deu a menos de um dia da entrega e com realmente muita dificuldade.
-    \par Com isso, conclui-se que é necessária uma revisão urgente dos conceitos apresentados correspondentes ao que o trabalho propõe para melhor entendimento e execução de programas similares.
+    \par Ademais, a compreensão e desenvolvimento do trabalho em si se deu com dificuldade, tanto por conseguir um programa aparentemente lento quanto por ter sido extremamente difícil chegar a um pensamento inicial que culminou na execução do trabalho entregue. O desenvolvimento do que é proposto só se deu a menos de um dia da entrega e com muita dificuldade.
+    \par Com isso, conclui-se que é necessário revisar os conceitos apresentados correspondentes ao que o trabalho propõe para melhor entendimento e execução de programas similares.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
