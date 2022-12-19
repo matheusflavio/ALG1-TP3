@@ -1,7 +1,9 @@
 # ALG1-TP3
 Repository to save my ALG1-TP1 Implementation.
 I personally consider my implementation bad, so I suggest to see this other one that I've found a couple of days after sending my implementation:
-[Babi's Github](https://github.com/babimartins/alg1-tp3)
+[Babi's AG1-TP3 Github](https://github.com/babimartins/alg1-tp3)
+
+90% of the grade adquired
 
 ## Compiling and Running the Program
 First of all, clone this repo into a folder of your preference inside your machine by opening a terminal inside that folder and than enter the project folder by running these commands:
