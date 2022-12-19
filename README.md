@@ -1,7 +1,7 @@
 # ALG1-TP3
 Repository to save my ALG1-TP1 Implementation.
 I personally consider my implementation bad, so I suggest to see this other one that I've found a couple of days after sending my implementation:
-[Babi's AG1-TP3 Github](https://github.com/babimartins/alg1-tp3)
+[Babi's ALG1-TP3 Github](https://github.com/babimartins/alg1-tp3)
 
 90% of the grade adquired
 
